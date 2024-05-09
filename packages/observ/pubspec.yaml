@@ -1,6 +1,6 @@
 name: observ
-description: "An event-oriented package."
-version: 0.0.4
+description: "An event-oriented package. Rely on events to ensure app reactivity while triggering long calls in the background."
+version: 0.0.5
 # homepage: 'https://wattshout.com'
 repository: 'https://github.com/wattshout/flutter-packages/tree/main/packages/observ'
 
@@ -20,6 +20,7 @@ dev_dependencies:
 platforms:
   android:
   ios:
+  linux:
   macos:
   web:
   windows:

@@ -1,3 +1,8 @@
+## 0.0.5
+
+* Changed package description
+* Added proper complete example
+
 ## 0.0.4
 
 * Added additional information into README.md
