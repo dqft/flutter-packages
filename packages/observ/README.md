@@ -1,39 +1,148 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# `observ`
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Event-oriented package.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Import the package:
+
+```dart
+import 'package:observ/observ.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'package:flutter/material.dart';
+import 'package:observ/observ.dart';
+
+void main() {
+    runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MyScaffold(),
+    );
+  }
+}
+
+class MyScaffold extends StatefulWidget {
+  const MyScaffold({super.key});
+
+  @override
+  State<MyScaffold> createState() => _MyScaffoldState();
+}
+
+class _MyScaffoldState extends State<MyScaffold> with Observer {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My App"),
+        leading: MyAppBarIcon(icon: _icon),
+      ),
+      body: MyBody(observer: this),
+    );
+  }
+
+  Icon _icon = const Icon(Icons.home);
+
+  @override
+  void observe(Observation observation, {Observable? from}) {
+    switch (observation) {
+      case IconPicked _:
+        setState(() => _icon = observation.icon);
+    }
+  }
+}
+
+class MyBody extends StatefulWidget with Observable {
+  const MyBody({
+    super.key,
+    required this.observer,
+  });
+
+  @override
+  State<MyBody> createState() => _MyBodyState();
+
+  @override
+  final Observer observer;
+}
+
+class _MyBodyState extends State<MyBody> with Observatory {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () => notify(ButtonClicked()),
+            child: const Text("Click!"),
+          ),
+          const SizedBox(height: 16),
+          Text("This button got clicked $_clicksCount."),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: _icons
+                .map((e) => IconButton(
+                      onPressed: () => notify(IconPicked(e)),
+                      icon: e,
+                      isSelected: e == _lastIconClicked,
+                    ))
+                .toList(),
+          )
+        ],
+      ),
+    );
+  }
+
+  int _clicksCount = 0;
+
+  final List<Icon> _icons = [
+    const Icon(Icons.abc),
+    const Icon(Icons.favorite),
+    const Icon(Icons.headphones),
+  ];
+
+  Icon? _lastIconClicked;
+
+  @override
+  void observe(Observation observation, {Observable? from}) {
+    switch (observation) {
+      case ButtonClicked _:
+        setState(() => _clicksCount++);
+      case IconPicked _:
+        setState(() {
+          _lastIconClicked = observation.icon;
+          forward(observation, from: this, to: widget.observer);
+        });
+    }
+  }
+}
+
+final class ButtonClicked extends Observation {
+  ButtonClicked() : super("Button got clicked");
+}
+
+final class IconPicked extends Observation {
+  final Icon icon;
+  IconPicked(this.icon) : super("Icon $icon got picked");
+}
+
+class MyAppBarIcon extends StatelessWidget {
+  final Icon _icon;
+  const MyAppBarIcon({super.key, required Icon icon}) : _icon = icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return _icon;
+  }
+}
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
