@@ -1,3 +1,8 @@
+## 0.0.6
+
+* Credited the source of inspiration
+* Added documentation to some symbols
+
 ## 0.0.5
 
 * Changed package description

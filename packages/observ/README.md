@@ -158,3 +158,7 @@ void main() {
   runApp(const MainApp());
 }
 ```
+
+## About this package
+
+This package is heavily inspired from a great [article](https://itnext.io/mvvm-in-flutter-from-scratch-17757b6433eb) from [Martin Nowosad](https://github.com/MrIceman).

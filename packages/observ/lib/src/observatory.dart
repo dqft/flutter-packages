@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:observ/observ.dart';
 
+/// [Observatory] is the combination of both the [Observer] and the
+/// [Observable].
 mixin Observatory implements Observer, Observable {
   @override
   late final Observer observer = this;
