@@ -3,6 +3,7 @@ import 'package:observ/observ.dart';
 
 /// [Observ] is just an abstract class for holding the package settings and
 /// debug method.
+@immutable
 abstract final class Observ {
   /// Set this to true to flood your debugging console logs
   ///

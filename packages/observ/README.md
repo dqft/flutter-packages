@@ -1,6 +1,7 @@
 # `observ`
 
-Event-oriented package.
+An event-oriented package.
+Rely on events to ensure app reactivity while triggering long calls in the background.
 
 ## Getting started
 

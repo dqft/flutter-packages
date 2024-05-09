@@ -1,3 +1,8 @@
+## 0.0.7
+
+* Marked all classes and mixins as immutable
+* Updated README.md package description
+
 ## 0.0.6
 
 * Credited the source of inspiration

@@ -3,6 +3,7 @@ import 'package:observ/observ.dart';
 
 /// [Observable] is a mixin for classes that just need to trigger some
 /// [Observation] to an [Observer].
+@immutable
 mixin Observable {
   Observer get observer;
 
