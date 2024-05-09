@@ -146,3 +146,15 @@ class MyAppBarIcon extends StatelessWidget {
   }
 }
 ```
+
+## Additional information
+
+You can enable console logging at development time:
+
+```dart
+void main() {
+  Observ.enableConsoleOutput = true;
+  ...
+  runApp(const MainApp());
+}
+```

@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Added additional information into README.md
+
 ## 0.0.3
 
 * Added support platforms
