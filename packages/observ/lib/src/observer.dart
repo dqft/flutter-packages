@@ -3,7 +3,6 @@ import 'package:observ/observ.dart';
 
 /// [Observer] is a mixin for classes that need to observe some [Observation]
 /// events.
-@immutable
 mixin Observer {
   void observe(Observation observation, {required Observable from});
 

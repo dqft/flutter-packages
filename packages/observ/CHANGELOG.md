@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Removed immutability flag on Observable, Observer and Observatory mixins
+
 ## 0.0.7
 
 * Marked all classes and mixins as immutable
