@@ -1,6 +1,6 @@
 name: statham
 description: "A package to provide Json support, KISS (Keep It Simple & Stupid) style."
-version: 0.0.1
+version: 0.1.0
 homepage: 'https://github.com/wattshout/flutter-packages'
 repository: 'https://github.com/wattshout/flutter-packages/tree/main/packages/statham'
 topics:

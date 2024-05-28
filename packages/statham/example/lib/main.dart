@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:statham/json.dart';
+import 'package:statham/statham.dart';
 
 void main() {
   final SomeParentClass parent = SomeParentClass(
@@ -11,12 +10,6 @@ void main() {
 
   final json = parent.toJson();
   print(json);
-
-  /// Adds the parser for [SomeClass]
-  JsonModifiers.jsons.addAll({SomeClass: SomeClass.fromJson});
-
-  final parentParsed = SomeParentClass.fromJson(json);
-  print(parentParsed.toJson());
 }
 
 class SomeParentClass {
@@ -25,24 +18,15 @@ class SomeParentClass {
   SomeParentClass({required this.someChildClass});
 
   Json toJson([String? key]) => key != null
-      ? {key: toJson()}
+      ? {
+          key: toJson(),
+        }
       : {
           "some_child_class": someChildClass.toJson(),
           ...someChildClass.toJson("same_child_class"),
         };
-
-  static SomeParentClass fromJson(Json json) {
-    // Either we added the correct parser
-    final SomeClass some = json.fromKey("some_child_class");
-
-    // Or we uncomment this line and keep it old school.
-    // final SomeClass some = SomeClass.fromJson(json["some_child_class"]);
-
-    return SomeParentClass(someChildClass: some);
-  }
 }
 
-@immutable
 final class SomeClass {
   final DateTime startedAt;
   final int duration;
@@ -51,15 +35,10 @@ final class SomeClass {
 
   const SomeClass.fromValues({required this.startedAt, required this.duration});
 
-  static SomeClass fromJson(Json json) {
-    final DateTime startedAt = json.fromKey("started_at");
-    final int duration = json.fromKey("duration");
-
-    return SomeClass.fromValues(startedAt: startedAt, duration: duration);
-  }
-
   Json toJson([String? key]) => key != null
-      ? {key: toJson()}
+      ? {
+          key: toJson(),
+        }
       : {
           ...startedAt.toJson("started_at"),
           "duration": duration.toJson(),
