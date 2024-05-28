@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:observ/observ.dart';
 
 void main() {
-  Observ.enableConsoleOutput = true;
+  Observ.debugMode = true;
   runApp(const MyApp());
 }
 
@@ -39,7 +39,8 @@ class _MyScaffoldState extends State<MyScaffold> with Observer {
   Icon _icon = const Icon(Icons.home);
 
   @override
-  void observe(Observation observation, {Observable? from}) {
+  void handle(Observation observation,
+      {required Observable from, required Observer to}) {
     switch (observation) {
       case IconPicked _:
         setState(() => _icon = observation.icon);
@@ -47,69 +48,18 @@ class _MyScaffoldState extends State<MyScaffold> with Observer {
   }
 }
 
-class MyBody extends StatefulWidget with Observable {
+class MyBody extends StatelessWidget with Observable {
+  @override
+  final Observer observer;
+
   const MyBody({
     super.key,
     required this.observer,
   });
 
   @override
-  State<MyBody> createState() => _MyBodyState();
-
-  @override
-  final Observer observer;
-}
-
-class _MyBodyState extends State<MyBody> with Observatory {
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-            onPressed: () => notify(ButtonClicked()),
-            child: const Text("Click!"),
-          ),
-          const SizedBox(height: 16),
-          Text("This button got clicked $_clicksCount."),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: _icons
-                .map((e) => IconButton(
-                      onPressed: () => notify(IconPicked(e)),
-                      icon: e,
-                      isSelected: e == _lastIconClicked,
-                    ))
-                .toList(),
-          )
-        ],
-      ),
-    );
-  }
-
-  int _clicksCount = 0;
-
-  final List<Icon> _icons = [
-    const Icon(Icons.abc),
-    const Icon(Icons.favorite),
-    const Icon(Icons.headphones),
-  ];
-
-  Icon? _lastIconClicked;
-
-  @override
-  void observe(Observation observation, {Observable? from}) {
-    switch (observation) {
-      case ButtonClicked _:
-        setState(() => _clicksCount++);
-      case IconPicked _:
-        setState(() {
-          _lastIconClicked = observation.icon;
-          forward(observation, from: this, to: widget.observer);
-        });
-    }
+    return const Placeholder();
   }
 }
 
