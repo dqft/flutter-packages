@@ -21,16 +21,13 @@ requires annotations in order to do the "magic" in part files.
 
 - `Json` alias for representing `Map<String, dynamic> json`
 - `T toJson<T>([String? key])` added to `bool`, `DateTime`, `int` and `String`
-- `T fromKey<T>(String key)` added to `Json`
-- Add your own value string parsers
-- Add your own class json parsers
 
 ## Getting started
 
 Import the package:
 
 ```dart
-import 'package:statham/json.dart';
+import 'package:statham/statham.dart';
 ```
 
 ## Usage
@@ -38,23 +35,17 @@ import 'package:statham/json.dart';
 See `/example` for a longer example.
 
 ```dart
-final json = {
-"started_at": "2024-05-08T11:48:31.291456Z",
-"duration": 2,
-"is_fake_news": false,
-};
+final startedAt = DateTime.timestamp();
+final int duration = 2;
+final fakeNews = false;
 
-final DateTime startedAt = json.fromKey("started_at");
-final int duration = json.fromKey("duration");
-final bool fakeNews = json.fromKey("is_fake_news");
-
-final Json parsed = {
+final Json json = {
 ...startedAt.toJson("started_at"),
 ...duration.toJson("duration"),
 ...fakeNews.toJson("is_fakes_news"),
 };
 
-print(parsed);
+print(json);
 ```
 
 ## Additional information

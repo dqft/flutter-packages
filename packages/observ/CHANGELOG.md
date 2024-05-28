@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Complete rewrite of the package to keep things simple
+
 ## 0.0.8
 
 * Removed immutability flag on Observable, Observer and Observatory mixins
